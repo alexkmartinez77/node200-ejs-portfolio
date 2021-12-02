@@ -15,10 +15,12 @@ router.get('/contact', function (req, res) {
     res.render('contact');
 });
 // define the thanks route
-router.get('/thanks', function (req, res) {
-    res.render('thanks');
-});
-
-
+router.route('/thanks')
+    .get(function (req, res) {
+        res.render('thanks');
+    })
+    .post(function (req, res) {
+        res.render('thanks', { contact: req.body })
+    });
 
 module.exports = router;
