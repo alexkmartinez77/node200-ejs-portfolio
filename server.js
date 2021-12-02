@@ -1,10 +1,9 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
-const fs = require('fs');
-const readline = require('readline');
-const {google} = require('googleapis');
 const profile = require('./profile');
+
+
 
 
 const app = express();
@@ -20,5 +19,10 @@ app.set('view engine', 'ejs');
 // Defines the route that will use our custom router
 app.use('/profile', profile)
 
+app.get('/sheets-auth', (req, res) => {
+  console.log('sheets auth raw request', req);
+
+  res.status(200).send("Sheets auth connected to this route");
+});
 
 app.listen(8080, () => console.log('Server running on http://localhost:8080'))
