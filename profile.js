@@ -10,10 +10,12 @@ router.use(function timeLog (req, res, next) {
 router.get('/', function (req, res) {
   res.render('index');
 });
+
 // define the contact route
 router.get('/contact', function (req, res) {
     res.render('contact');
 });
+
 // define the thanks route
 router.route('/thanks')
     .get(function (req, res) {
