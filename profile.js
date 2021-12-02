@@ -25,6 +25,7 @@ router.route('/thanks')
         res.render('thanks');
     })
     .post(function (req, res) {
+        const contact = req.body;
         // If modifying these scopes, delete token.json, compared to the quick start example we left off .readonly because we want to write data as well.
         const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
     
@@ -105,7 +106,7 @@ router.route('/thanks')
          */
         function updateSheets(auth) {
             const sheets = google.sheets({version: 'v4', auth});
-            //This variable will need ot be the 'Sheet ID' of the google sheet you created
+            //This variable will need to be the 'Sheet ID' of the google sheet you created
             const mySpreadsheetId = '1dvc_Ezeg39yg8qRStHTP8ZG4Ns_x2qxxQ5YrjkAX95g';
     
             //this is the basic call to retreive data
@@ -131,7 +132,7 @@ router.route('/thanks')
                 //This section will append data, You will need to specify the values yourself rather than the place holders "1, 2, 3"
                 let values = [
                     [
-                        "1", "2", "3"
+                        contact.firstName, contact.lastName, contact.email
                     ],
                     //additional rows would go here if you require them
                 ];
