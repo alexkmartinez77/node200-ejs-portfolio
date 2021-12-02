@@ -17,6 +17,8 @@ router.get('/contact', function (req, res) {
 // define the thanks route
 router.get('/thanks', function (req, res) {
     res.render('thanks');
-})
-;
+});
+
+
+
 module.exports = router;
