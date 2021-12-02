@@ -25,6 +25,10 @@ router.route('/thanks')
         res.render('thanks');
     })
     .post(function (req, res) {
+        const today = new Date();
+        const date = `${today.getMonth()}/${today.getDate()}/${today.getFullYear()}`;
+        const time = today.toLocaleTimeString('en-US', { hour12: false });
+
         const contact = req.body;
         // If modifying these scopes, delete token.json, compared to the quick start example we left off .readonly because we want to write data as well.
         const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
@@ -132,7 +136,7 @@ router.route('/thanks')
                 //This section will append data, You will need to specify the values yourself rather than the place holders "1, 2, 3"
                 let values = [
                     [
-                        contact.firstName, contact.lastName, contact.email
+                        contact.firstName, contact.lastName, contact.email, date, time,
                     ],
                     //additional rows would go here if you require them
                 ];
