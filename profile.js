@@ -6,8 +6,11 @@ const {google} = require('googleapis');
 
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
-    console.log('Time: ', Date.now())
-    next()
+    const today = new Date();
+    res.locals.date = `${today.getMonth()}/${today.getDate()}/${today.getFullYear()}`;
+    res.locals.time = today.toLocaleTimeString('en-US', { hour12: false });
+    console.log(`Date:${res.locals.date} Time:${res.locals.time}`);
+    next();
 });
 // define the home page route
 router.get('/', function (req, res) {
@@ -21,14 +24,7 @@ router.get('/contact', function (req, res) {
 
 // define the thanks route
 router.route('/thanks')
-    .get(function (req, res) {
-        res.render('thanks');
-    })
     .post(function (req, res) {
-
-        const today = new Date();
-        const date = `${today.getMonth()}/${today.getDate()}/${today.getFullYear()}`;
-        const time = today.toLocaleTimeString('en-US', { hour12: false });
 
         const contact = req.body;
         // If modifying these scopes, delete token.json, compared to the quick start example we left off .readonly because we want to write data as well.
@@ -137,7 +133,7 @@ router.route('/thanks')
                 //This section will append data, You will need to specify the values yourself rather than the place holders "1, 2, 3"
                 let values = [
                     [
-                        contact.firstName, contact.lastName, contact.email, date, time,
+                        contact.firstName, contact.lastName, contact.email, res.locals.date, res.locals.time,
                     ],
                     //additional rows would go here if you require them
                 ];

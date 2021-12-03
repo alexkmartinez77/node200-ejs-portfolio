@@ -1,10 +1,8 @@
 const bodyParser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
+//this is a router for the /profile path
 const profile = require('./profile');
-
-
-
 
 const app = express();
 
