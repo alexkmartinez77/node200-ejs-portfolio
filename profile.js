@@ -9,7 +9,7 @@ router.use(function timeLog (req, res, next) {
     const today = new Date();
     res.locals.date = `${today.getMonth()}/${today.getDate()}/${today.getFullYear()}`;
     res.locals.time = today.toLocaleTimeString('en-US', { hour12: false });
-    console.log(`Date:${res.locals.date} Time:${res.locals.time}`);
+    console.log(`Today's Date: ${res.locals.date} Time: ${res.locals.time}`);
     next();
 });
 // define the home page route
@@ -25,11 +25,10 @@ router.get('/contact', function (req, res) {
 // define the thanks route
 router.route('/thanks')
     .post(function (req, res) {
-
+        // This is the contact information posted by the contact.ejs form
         const contact = req.body;
         // If modifying these scopes, delete token.json, compared to the quick start example we left off .readonly because we want to write data as well.
         const SCOPES = ['https://www.googleapis.com/auth/spreadsheets'];
-    
         // The file token.json stores the user's access and refresh tokens, and is
         // created automatically when the authorization flow completes for the first
         // time.
@@ -38,12 +37,17 @@ router.route('/thanks')
         // Load client secrets from a local file, it is possible that you will need to update the filepath to crednetials.json depending on where in your file structure you placed it. 
         fs.readFile('./server/credentials.json', (err, content) => {
             if (err) return console.log('Error loading client secret file:', err);
-    
-            console.log(`content: `, JSON.parse(content));
-    
             // Authorize a client with credentials, then call the Google Sheets API.
             //This uses the authorize function below, having passed in the function 'updateSheets' as the callabck. authorize() calls updateSheets once it's authorized and passes those credentials into uppdateSheets. 
             authorize(JSON.parse(content), updateSheets)
+        });
+        //Logs expiration date
+        fs.readFile(TOKEN_PATH, (err, token) => {
+            if (err) console.log('Error obtaining Token Expiration Date');
+            else {
+                let expire = JSON.parse(token);
+                console.log(`Token expires: ${new Date(expire.expiry_date).toISOString().substr(0, 10)}`)
+            }
         });
     
         /**
