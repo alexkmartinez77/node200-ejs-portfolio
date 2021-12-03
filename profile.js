@@ -25,6 +25,7 @@ router.route('/thanks')
         res.render('thanks');
     })
     .post(function (req, res) {
+
         const today = new Date();
         const date = `${today.getMonth()}/${today.getDate()}/${today.getFullYear()}`;
         const time = today.toLocaleTimeString('en-US', { hour12: false });
@@ -46,7 +47,7 @@ router.route('/thanks')
     
             // Authorize a client with credentials, then call the Google Sheets API.
             //This uses the authorize function below, having passed in the function 'updateSheets' as the callabck. authorize() calls updateSheets once it's authorized and passes those credentials into uppdateSheets. 
-            authorize(JSON.parse(content), updateSheets); 
+            authorize(JSON.parse(content), updateSheets)
         });
     
         /**
@@ -117,9 +118,9 @@ router.route('/thanks')
             sheets.spreadsheets.values.get({
                 spreadsheetId: mySpreadsheetId,
                 range: 'Sheet1',
-            }, (err, res) => {
+            }, (err, sheetRes) => {
                 if (err) return console.log('The API returned an error: ' + err);
-                const rows = res.data.values;
+                const rows = sheetRes.data.values;
                 //This is setting a variable that is the current number or rows in your sheet, this will be useful so that you can append data on the next row as you need to manually specify which row you want data appended to.
                 let existingRowsLength = rows.length;
                 if (rows.length) {
