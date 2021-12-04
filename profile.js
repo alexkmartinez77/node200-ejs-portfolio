@@ -39,7 +39,7 @@ router.route('/thanks')
             if (err) return console.log('Error loading client secret file:', err);
             // Authorize a client with credentials, then call the Google Sheets API.
             //This uses the authorize function below, having passed in the function 'updateSheets' as the callabck. authorize() calls updateSheets once it's authorized and passes those credentials into uppdateSheets. 
-            authorize(JSON.parse(content), updateSheets)
+            authorize(JSON.parse(content), updateSheets);
         });
         //Logs expiration date
         fs.readFile(TOKEN_PATH, (err, token) => {
@@ -55,7 +55,7 @@ router.route('/thanks')
          * given callback function.
          */
         function authorize(credentials, callback) {
-            //As cmpared to the Quick start ewxample we changed this to credentials.web because this is pulling data from the credentials.json file and the version of that file that google generates for us has 'web' as the object property. 
+            //As compared to the Quick start example we changed this to credentials.web because this is pulling data from the credentials.json file and the version of that file that google generates for us has 'web' as the object property. 
             const {client_secret, client_id, redirect_uris} = credentials.web;
     
             const oAuth2Client = new google.auth.OAuth2(
@@ -124,12 +124,12 @@ router.route('/thanks')
                 //This is setting a variable that is the current number or rows in your sheet, this will be useful so that you can append data on the next row as you need to manually specify which row you want data appended to.
                 let existingRowsLength = rows.length;
                 if (rows.length) {
-                    console.log('Returned values');
-    
+                    console.log('********************* GOOGLE SHEET *********************');
                     // Print the existing sheet data to the terminal.
-                    rows.map((row) => {
-                        console.log(`${row}`);
+                    rows.map((row, index) => {
+                        console.log(`Row ${index + 1}: ${row}`);
                     });
+                    console.log('********************* GOOGLE SHEET *********************');
                 } else {
                     console.log('No data found.');
                 }
