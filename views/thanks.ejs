@@ -3,8 +3,10 @@
       <title>Tom Thanks You</title>
   </head>
   <body>
+      <%- include('./partials/header.ejs') %>
       <div>
         Thank you <%= contact.firstName %> <%= contact.lastName %>.
       </div>
+      <%- include('./partials/footer.ejs') %>
   </body>
 </html>
