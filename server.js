@@ -9,6 +9,7 @@ const app = express();
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static('public'));
 
 // Sets up ejs template engine to look in the views directory for templates
 app.set('views', './views');
