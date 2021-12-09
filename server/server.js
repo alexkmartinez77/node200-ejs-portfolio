@@ -24,4 +24,4 @@ app.get('/sheets-auth', (req, res) => {
   res.status(200).send("Sheets auth connected to this route");
 });
 
-app.listen(8080, () => console.log('Server running on http://localhost:8080'))
+module.exports = app;

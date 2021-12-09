@@ -32,7 +32,7 @@ router.route('/thanks')
         // The file token.json stores the user's access and refresh tokens, and is
         // created automatically when the authorization flow completes for the first
         // time.
-        const TOKEN_PATH = 'token.json';
+        const TOKEN_PATH = '../token.json';
     
         // Load client secrets from a local file, it is possible that you will need to update the filepath to crednetials.json depending on where in your file structure you placed it. 
         fs.readFile('./server/credentials.json', (err, content) => {
