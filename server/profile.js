@@ -7,7 +7,7 @@ const {google} = require('googleapis');
 // middleware that is specific to this router
 router.use(function timeLog (req, res, next) {
     const today = new Date();
-    res.locals.date = `${today.getMonth()}/${today.getDate()}/${today.getFullYear()}`;
+    res.locals.date = `${today.getMonth() + 1}/${today.getDate()}/${today.getFullYear()}`;
     res.locals.time = today.toLocaleTimeString('en-US', { hour12: false });
     console.log(`Today's Date: ${res.locals.date} Time: ${res.locals.time}`);
     next();
