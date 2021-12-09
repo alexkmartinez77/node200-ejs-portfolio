@@ -1,5 +1,5 @@
 const Nightmare = require('nightmare')
-const assert = require('assert')
+var should = require('chai').should();
 
 describe('Load a Page', function() {
   // Recommended: 5s locally, 10s to remote server, 30s from airplane ¯\_(ツ)_/¯
@@ -12,8 +12,7 @@ describe('Load a Page', function() {
 
   describe('/profile', () => {
 
-    it('should load without error', done => {
-      // your actual testing urls will likely be `http://localhost:port/path`
+    it('should load portfolio index page without error', done => {
       nightmare.goto('http://localhost:8080/profile')
         .end()
         .then(function (result) { done() })
@@ -30,11 +29,11 @@ describe('Load a Page', function() {
         gitHub: "https://github.com/alexkmartinez77/web102-change-calculator"
       },
       sanDiegoTopSpots: {
-        site: "https://sdcs-web102-astro-https://sdcs-web102-sd-hot-spots.herokuapp.com/",
+        site: "https://sdcs-web102-sd-hot-spots.herokuapp.com/",
         gitHub: "https://github.com/https://github.com/alexkmartinez77/web102-san-diego-top-spots"
       },
       mortgageCalculator: {
-        site: "https://sdcs-web102-https://sdcs-react100-mortgage-calc.herokuapp.com/",
+        site: "https://sdcs-react100-mortgage-calc.herokuapp.com/",
         gitHub: "https://github.com/alexkmartinez77/react100-mortgage-calculator"
       },
       ticTacToe: {
@@ -70,5 +69,26 @@ describe('Load a Page', function() {
         gitHub: "https://github.com/alexkmartinez77/react200-movie-finder"
       }
     }
+
+    Object.keys(projects).map(key => {
+      it(`should load ${key} site with 200 response`, done => {
+        nightmare.goto(`${projects[key].site}`)
+          .then(function (response) {
+            response.code.should.equal(200);
+            done();
+          })
+      })
+    })
+
+    Object.keys(projects).map(key => {
+      it(`should load ${key} github repo with 200 response`, done => {
+        nightmare.goto(`${projects[key].gitHub}`)
+          .then(function (response) {
+            response.code.should.equal(200);
+            done();
+          })
+      })
+    })
+ 
   })
 })
