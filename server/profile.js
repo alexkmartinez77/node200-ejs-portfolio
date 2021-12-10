@@ -22,6 +22,10 @@ router.get('/contact', function (req, res) {
     res.render('contact');
 });
 
+router.get('/about', function (req, res) {
+    res.render('about');
+});
+
 // define the thanks route
 router.route('/thanks')
     .post(function (req, res) {
